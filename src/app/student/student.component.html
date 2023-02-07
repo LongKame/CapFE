@@ -1,0 +1,82 @@
+
+<p>Quản lý học viên</p>
+
+<nav>
+    <div class="search-box">
+        <form [formGroup]="searchInforForm">
+            <input type="text" placeholder="Tìm kiếm..." formControlName="key_search">
+            <button (click)="onSearch()" type="submit"><i class="bx bx-search"></i></button>
+        </form>
+    </div>
+</nav>
+
+<!-- <div class="but" style="width: fit-content; margin-left: 85%; margin-top: -5px;">
+    <button style="background-color: #f28e47;" type="button" class="btn btn-secondary"><i class="fas fa-print"></i>
+        Print</button>
+    <div class="space">
+    </div>
+    <button type="button" class="btn btn-primary" (click)="openModal(add)"><i class="fas fa-user-plus"></i> Add</button>
+</div> -->
+
+<br><br>
+<div class="sales-boxes">
+    <ag-grid-angular class="ag-theme-balham" [rowData]="rowData" [headerHeight]="80" [rowHeight]="80"
+        [suppressContextMenu]="true" [suppressRowTransform]="true" [suppressRowClickSelection]="true"
+        [rowSelection]="'multiple'" [treeData]="true" [defaultColDef]="defaultColDef" [columnDefs]="columnDefs">
+    </ag-grid-angular>
+</div>
+
+<div class="pagination1">
+    <ul>
+        <button class="btn btn-warning" (click)="prev()">&laquo;</button>
+        <button id="btn{{i}}" class="btn btn-warning btn-pag" *ngFor="let i of rangeWithDots;"
+            (click)="i !== '...' && page(i,$event)">
+            {{ i }}
+        </button>
+        <button class="btn btn-warning" (click)="next()">&raquo;</button>
+    </ul>
+</div>
+
+<ng-template #add>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Add Class</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Phòng học:</b>
+                        <input type="text"  class="form-control">
+                        <b for="message-text" class="col-form-label">Lớp học:</b>
+                        <input type="text"  class="form-control">
+                        <b for="message-text" class="col-form-label">Giảng viên:</b>
+                        <input type="text"  class="form-control">
+                        <b for="message-text" class="col-form-label">Slot:</b>
+                        <input type="text"  class="form-control">
+                        <b for="message-text" class="col-form-label">Ngày bắt đầu:</b>
+                        <input type="date"  class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Khóa học:</b>
+                        <input type="number"  class="form-control">
+                        <b for="message-text" class="col-form-label">Số buổi học:</b>
+                        <input type="number"  class="form-control">
+                        <b for="message-text" class="col-form-label">Slot 1 trong tuần:</b>
+                        <input type="number"  class="form-control">
+                        <b for="message-text" class="col-form-label">Slot 2 trong tuần:</b>
+                        <input type="number"  class="form-control">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-primary" (click)="addAca()">Add</button> -->
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template>

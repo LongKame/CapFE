@@ -1,0 +1,15 @@
+<p>View timetable</p>
+
+<span style="width: 10%; margin-left: 10%;">Class(es):</span>
+<select class="form-control" formControlName="room_id" required style="width: 10%; margin-left: 10%;"
+    (change)="selectedValue($any($event.target).value)">
+    <option *ngFor="let item of classOptions" [value]="item.value" [value]="item.value">{{ item.label }}</option>
+</select>
+
+<br><br>
+<div class="sales-boxes">
+    <ag-grid-angular class="ag-theme-balham" [rowData]="rowData" [headerHeight]="80" [rowHeight]="80"
+        [suppressContextMenu]="true" [suppressRowTransform]="true" [suppressRowClickSelection]="true"
+        [rowSelection]="'multiple'" [treeData]="true" [defaultColDef]="defaultColDef" [columnDefs]="columnDefs">
+    </ag-grid-angular>
+</div>

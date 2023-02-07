@@ -1,0 +1,89 @@
+<p>Quản lý sinh viên</p>
+
+<nav>
+    <div class="search-box">
+        <form [formGroup]="searchInforForm">
+            <input type="text" placeholder="Tìm kiếm..." formControlName="key_search">
+            <button (click)="onSearch()" type="submit"><i class="bx bx-search"></i></button>
+        </form>
+    </div>
+</nav>
+
+<div class="but" style="width: fit-content; margin-left: 85%; margin-top: -5px;">
+    <div class="space">
+    </div>
+    <button type="button" class="btn btn-primary" (click)="openModal(add)"><i class="fas fa-user-plus"></i>Thêm
+        mới</button>
+</div>
+
+<br><br>
+<div class="sales-boxes">
+    <ag-grid-angular class="ag-theme-balham" [rowData]="rowData" [headerHeight]="80" [rowHeight]="80"
+        [suppressContextMenu]="true" [suppressRowTransform]="true" [suppressRowClickSelection]="true"
+        [rowSelection]="'multiple'" [treeData]="true" [defaultColDef]="defaultColDef" [columnDefs]="columnDefs">
+    </ag-grid-angular>
+</div>
+
+<div class="pagination1">
+
+
+    <ul>
+        <button class="btn btn-warning" (click)="prev()">&laquo;</button>
+        <button id="btn{{i}}" class="btn btn-warning btn-pag" *ngFor="let i of rangeWithDots;"
+            (click)="i !== '...' && page(i,$event)">
+            {{ i }}
+        </button>
+        <button class="btn btn-warning" (click)="next()">&raquo;</button>
+    </ul>
+
+    
+    <div class="pagination">
+        <ng-template #add>
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Thêm tài khoản</h4>
+                <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-6">
+                                <b for="message-text" class="col-form-label">Tên tài khoản:</b>
+                                <input type="text" [(ngModel)]="user_name" (keypress)="keyPressUserName($event)"
+                                    class="form-control">
+                                <b for="message-text" class="col-form-label">Họ tên:</b>
+                                <input type="text" [(ngModel)]="full_name" (keypress)="keyPressName($event)"
+                                    class="form-control">
+                                <b for="message-text" class="col-form-label">Mật khẩu:</b>
+                                <input type="password" [(ngModel)]="password" class="form-control">
+                                <b for="message-text" class="col-form-label">Email:</b>
+                                <input type="text" [(ngModel)]="email" class="form-control">
+                            </div>
+                            <div class="col-6">
+                                <b for="message-text" class="col-form-label">Mã số:</b>
+                                <input type="text" [(ngModel)]="code" minlength=6
+                                    maxlength=6 class="form-control">
+                                <b for="message-text" class="col-form-label">Số điện thoại:</b>
+                                <input type="text" [(ngModel)]="phone" (keypress)="keyPressPhone($event)" minlength=10
+                                    maxlength=10 class="form-control">
+                                <b for="message-text" class="col-form-label">Địa chỉ:</b>
+                                <input type="text" [(ngModel)]="address" class="form-control">
+                                <b for="message-text" class="col-form-label">Ảnh:</b>
+                                <input type="file" (change)="onChange($event)" class="form-control">
+                                <br>
+                                <div *ngIf="myImage">
+                                    <img [src]="myImage" width="50px" height="100px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="addTeacher()">Thêm</button>
+                <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+            </div>
+        </ng-template>
+</div>

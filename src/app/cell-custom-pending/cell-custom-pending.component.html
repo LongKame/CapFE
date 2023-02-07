@@ -1,0 +1,78 @@
+<div class="but" style="width: fit-content; margin: auto; margin-top: 20px;">
+    <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Update"
+        (click)="openModal(update)"><i class="fas fa-user-edit"></i></button>
+    <div class="space">
+    </div>
+    <button type="button" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Change"
+        (click)="openModalChange(change, params.data.course_Id, params.data.student_Id)"><i
+            class="fas fa-exchange-alt"></i></button>
+    <div class="space">
+    </div>
+    <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
+        (click)="openModalDelete(delete, params.data.student_Id)"><i
+            class="fas fa-user-minus"></i></button>
+</div>
+
+<!-- <ng-template #delete>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Delete pending student</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deletePending()">Delete</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template> -->
+
+
+<ng-template #update>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Cập nhật học viên chờ</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="updatePending()">Cập nhật</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template>
+
+<ng-template #delete>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Xóa học viên khỏi danh sách chờ</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deletePending()">Xóa</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template>
+
+<ng-template #change>
+    <form [formGroup]="form" (ngSubmit)="changePending()">
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Thay đổi học viên chờ</h4>
+            <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+                <span aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <b for="message-text" class="col-form-label">Lớp học:</b>
+            <select class="form-control" formControlName="classId" required>
+                <option *ngFor="let item of classOptions" [value]="item.value">{{ item.label }}</option>
+            </select>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-warning" type="submit">Thay đổi</button>
+            <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+        </div>
+    </form>
+</ng-template>

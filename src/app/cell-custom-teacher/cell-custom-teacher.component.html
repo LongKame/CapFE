@@ -1,0 +1,71 @@
+<div class="but" style="width: fit-content; margin: auto; margin-top: 20px;">
+    <!-- <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Update" (click)="openModal(update)"><i class="fas fa-user-edit"></i></button> -->
+    <div class="space">
+    </div>
+    <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" (click)="openModalDelete(delete)"><i class="fas fa-user-minus"></i></button>
+</div>
+
+<ng-template #delete>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Thay đổi sinh viên</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteTeacher()">Xóa</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template>
+
+
+<ng-template #update>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Cập nhật sinh viên</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Tên tài khoản:</b>
+                        <input type="text" [readonly]="true"
+                        [(ngModel)]="params.data.user_name" class="form-control">
+                        <b for="message-text" class="col-form-label">Tên người dùng:</b>
+                        <input type="text" [(ngModel)]="params.data.full_name" 
+                        (keypress)="keyPressName($event)" class="form-control">
+                        <b for="message-text" class="col-form-label">Email:</b>
+                        <input type="text" [readonly]="true"
+                        [(ngModel)]="params.data.email" class="form-control">
+                        <b for="message-text" class="col-form-label">Trạng thái:</b>
+                        <div class="space">
+                        </div>
+                        <input type='checkbox' [(ngModel)]="params.data.active">
+                    </div>
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Số điện thoại:</b>
+                        <input type="email" [(ngModel)]="params.data.phone" 
+                        (keypress)="keyPressPhone($event)" minlength=10 maxlength=10 class="form-control">
+                        <b for="message-text" class="col-form-label">Địa chỉ:</b>
+                        <input type="text" [(ngModel)]="params.data.address" class="form-control">
+                        <b for="message-text" class="col-form-label">Ảnh:</b>
+                        <input type="file" (change)="onChange($event)" class="form-control">
+                        <br>
+                        <div *ngIf="imageUrl">
+                            <img [src]="imageUrl" width="50px" height="100px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="updateTeacher()">Cập nhật</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template>

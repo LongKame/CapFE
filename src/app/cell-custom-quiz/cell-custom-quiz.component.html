@@ -1,0 +1,63 @@
+<div class="but" style="width: fit-content; margin: auto; margin-top: 20px;">
+    <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Update" (click)="openModal(update)"><i class="fas fa-user-edit"></i></button>
+    <div class="space">
+    </div>
+    <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" (click)="openModalDelete(delete)"><i class="fas fa-user-minus"></i></button>
+</div>
+
+<ng-template #delete>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Xóa câu hỏi</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteQuiz()">Xóa</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template>
+
+
+<ng-template #update>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Cập nhật câu hỏi</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Câu hỏi:</b>
+                        <input type="text" [(ngModel)]="params.data.question" class="form-control">
+                        <b for="message-text" class="col-form-label">Đáp án A:</b>
+                        <input type="text" [(ngModel)]="params.data.answerA" class="form-control">
+                        <b for="message-text" class="col-form-label">Đáp án B:</b>
+                        <input type="text" [(ngModel)]="params.data.answerB" class="form-control">
+                        <b for="message-text" class="col-form-label">Ngày tạo:</b>
+                        <input type="text" [readonly]="true" [(ngModel)]="params.data.createdAt" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Đáp án C:</b>
+                        <input type="email" [(ngModel)]="params.data.answerC" class="form-control">
+                        <b for="message-text" class="col-form-label">Đáp án D:</b>
+                        <input type="text" [(ngModel)]="params.data.answerD" class="form-control">
+                        <b for="message-text" class="col-form-label">Đáp án:</b>
+                        <input type="text" [(ngModel)]="params.data.correct" class="form-control">
+                        <b for="message-text" class="col-form-label">Ngày cập nhật:</b>
+                        <input type="text" [readonly]="true" [(ngModel)]="params.data.updatedAt" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="updateQuiz()">Cập nhật</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template>

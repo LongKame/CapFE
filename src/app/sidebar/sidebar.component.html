@@ -1,0 +1,24 @@
+<div class="sidebar-container">
+  <div class="sidebar-head">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMBzCnHN3tJhq7x-zB4bPHN098fswAZvD-6w&usqp=CAU" />
+    <!-- <br>
+    <div class="sidebar-name">
+      <div>ECM</div>
+    </div> -->
+  </div>
+  <ul class="sidebar-menus">
+    <li
+      class=""
+      *ngFor="let menu of menus"
+      routerLinkActive="active"
+      [matTooltip]="menu.menu"
+      [matTooltipDisabled]="!showingTooltip"
+      matTooltipPosition="right"
+    >
+      <a [routerLink]="menu.link ?? null" (click)="menu.onClick?.()">
+        <fa-icon class="icon" [icon]="menu.icon"></fa-icon>
+        <span>{{ menu.menu }}</span>
+      </a>
+    </li>
+  </ul>
+</div>

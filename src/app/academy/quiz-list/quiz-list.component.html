@@ -1,0 +1,12 @@
+<div class="quiz-container mb-3">
+  <div class="container" style="width: 80%">
+    <h2 class="text-center mb-4 user-select-none">
+      <b>Mini Practice Test</b>
+    </h2>
+    <div class="d-flex flex-column direction-column align-items-center">
+      <a *ngFor="let level of [1,2,3]" class="inline-block mb-3 level" [routerLink]="'/academy/quiz/' + level">
+        Level {{level}}
+      </a>
+    </div>
+  </div>
+</div>

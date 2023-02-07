@@ -1,0 +1,68 @@
+<p>Quản lý sự kiện</p>
+
+<nav>
+    <div class="search-box">
+        <form [formGroup]="searchInforForm">
+            <input type="text" placeholder="Tìm kiếm..." formControlName="key_search">
+            <button (click)="onSearch()" type="submit"><i class="bx bx-search"></i></button>
+        </form>
+    </div>
+</nav>
+
+<div class="but" style="width: fit-content; margin-left: 85%; margin-top: -5px;">
+    <div class="space">
+    </div>
+    <button type="button" class="btn btn-primary" (click)="openModal(add)"><i class="fas fa-user-plus"></i>Thêm
+        mới</button>
+</div>
+
+<br><br>
+<div class="sales-boxes">
+    <ag-grid-angular class="ag-theme-balham" [rowData]="rowData" [headerHeight]="80" [rowHeight]="80"
+        [suppressContextMenu]="true" [suppressRowTransform]="true" [suppressRowClickSelection]="true"
+        [rowSelection]="'multiple'" [treeData]="true" [defaultColDef]="defaultColDef" [columnDefs]="columnDefs">
+    </ag-grid-angular>
+</div>
+
+<div class="pagination1">
+
+
+    <ul>
+        <button class="btn btn-warning" (click)="prev()">&laquo;</button>
+        <button id="btn{{i}}" class="btn btn-warning btn-pag" *ngFor="let i of rangeWithDots;"
+            (click)="i !== '...' && page(i,$event)">
+            {{ i }}
+        </button>
+        <button class="btn btn-warning" (click)="next()">&raquo;</button>
+    </ul>
+
+
+    <div class="pagination">
+        <ng-template #add>
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Thêm sự kiện</h4>
+                <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <b for="message-text" class="col-form-label">Sự kiện:</b>
+                <input type="text" [(ngModel)]="name" class="form-control">
+                <b for="message-text" class="col-form-label">Ảnh:</b>
+                <input type="file" (change)="onChange($event)" class="form-control">
+                <br>
+                <div *ngIf="myImage">
+                    <img [src]="myImage" width="50px" height="100px">
+                </div>
+                <b for="message-text" class="col-form-label">Ngày bắt đầu:</b>
+                <input type="date" [(ngModel)]="from_date" class="form-control">
+                <b for="message-text" class="col-form-label">Ngày kết thúc:</b>
+                <input type="date" [(ngModel)]="to_date" class="form-control">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" (click)="addEvent()">Cập nhật</button>
+                    <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>

@@ -1,0 +1,140 @@
+<div class="body2">
+    <div class="teacher" style="margin-top: 20px;">
+
+
+        <span>Các phòng bắt đầu bằng AL thuộc tòa nhà Alpha. VD: AL...</span>
+        <br>
+        <span> Các phòng bắt đầu bằng BE thuộc tòa nhà Beta. VD: BE,..</span>
+        <br>
+        <span>Slot 1 bắt đầu từ 12:30:00 đến 14:30:00</span>
+        <br>
+        <span>Slot 2 bắt đầu từ 14:40:00 đến 16:40:00</span>
+        <br>
+        <span>Slot 3 bắt đầu từ 16:50:00 đến 18:50:00</span>
+        <br>
+        <span>Slot 4 bắt đầu từ 19:00:00 đến 21:00:00</span>
+        <br>
+
+        <div class="include" *ngIf="mon2">
+            <div class="floatLeft head" style="width: 23%;">
+                <table>
+                    <tr>
+                        <th>WEEK
+                            <select (change)="selectedValue($any($event.target).value)">
+                                <option *ngFor="let i of weekData" [value]="i.start_date"
+                                    [attr.selected]="firstDayOfWeek==i.start_date ? i.start_date : null">
+                                    {{i.start_date}} To {{i.end_date}}
+                                </option>
+                            </select>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Slot 1</td>
+                    </tr>
+                    <tr>
+                        <td>Slot 2</td>
+                    </tr>
+                    <tr>
+                        <td>Slot 3</td>
+                    </tr>
+                    <tr>
+                        <td>Slot 4</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="floatLeft">
+                <table>
+                    <tr>
+                        <th>MON: {{mon}}</th>
+                    </tr>
+                    <tr *ngFor="let i of mon2">
+                        <td *ngIf="i.class_name"><span class="class-name">{{i.class_name}}</span> at {{i.room_name}}
+                        </td>
+                        <td *ngIf="!i.class_name">-----------</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="floatLeft">
+                <table>
+                    <tr>
+                        <th>TUE: {{tue}}</th>
+                    </tr>
+                    <tr *ngFor="let i of tue2">
+                        <td *ngIf="i.class_name"><span class="class-name">{{i.class_name}}</span> at {{i.room_name}}
+                        </td>
+                        <td *ngIf="!i.class_name">-----------</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="floatLeft">
+                <table>
+                    <tr>
+                        <th>WED: {{wed}}</th>
+                    </tr>
+                    <tr *ngFor="let i of wed2">
+                        <td *ngIf="i.class_name"><span class="class-name">{{i.class_name}}</span> at {{i.room_name}}
+                        </td>
+                        <td *ngIf="!i.class_name">-----------</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="floatLeft">
+                <table>
+                    <tr>
+                        <th>THU: {{thu}}</th>
+                    </tr>
+                    <tr *ngFor="let i of thu2">
+                        <td *ngIf="i.class_name"><span class="class-name">{{i.class_name}}</span> at {{i.room_name}}
+                        </td>
+                        <td *ngIf="!i.class_name">-----------</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="floatLeft">
+                <table>
+                    <tr>
+                        <th>FRI: {{fri}}</th>
+                    </tr>
+                    <tr *ngFor="let i of fri2">
+                        <td *ngIf="i.class_name"><span class="class-name">{{i.class_name}}</span> at {{i.room_name}}
+                        </td>
+                        <td *ngIf="!i.class_name">-----------</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="floatLeft">
+                <table>
+                    <tr>
+                        <th>SAT: {{sat}}</th>
+                    </tr>
+                    <tr *ngFor="let i of sat2">
+                        <td *ngIf="i.class_name"><span class="class-name">{{i.class_name}}</span> at {{i.room_name}}
+                        </td>
+                        <td *ngIf="!i.class_name">-----------</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="floatLeft">
+                <table>
+                    <tr>
+                        <th>SUN: {{sun}}</th>
+                    </tr>
+                    <tr *ngFor="let i of sun2">
+                        <td *ngIf="i.class_name"><span class="class-name">{{i.class_name}}</span> at {{i.room_name}}
+                        </td>
+                        <td *ngIf="!i.class_name">-----------</td>
+                    </tr>
+                </table>
+            </div>
+            <br><br>
+        </div>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+        <br><br>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+.quiz-container {
+  button {
+    border: 1px solid #c9cdd1;
+    &:focus {
+      box-shadow: none;
+    }
+    &.answered {
+      background-color: #c9cdd1;
+    }
+    &.current {
+      font-weight: 600;
+      border: 1px solid #29292a;
+    }
+  }
+}

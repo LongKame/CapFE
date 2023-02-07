@@ -1,0 +1,60 @@
+<div class="but" style="width: fit-content; margin: auto; margin-top: 20px;">
+    <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Update"
+        (click)="openModal(update)"><i class="fas fa-user-edit"></i></button>
+    <div class="space">
+    </div>
+    <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete"
+        (click)="openModalDelete(delete)"><i class="fas fa-user-minus"></i></button>
+</div>
+
+<ng-template #delete>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Xóa tài liệu</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteCurriculum()">Xóa</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template>
+
+<ng-template #update>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Cập nhật tài liệu</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Tài liệu:</b>
+                        <input type="text" [(ngModel)]="params.data.curriculum_name" class="form-control">
+                        <b for="message-text" class="col-form-label">Liên kết:</b>
+                        <input type="text" [(ngModel)]="params.data.link_url" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Khóa học:</b>
+                        <select class="form-control" [(ngModel)]="courseId">
+                            <option *ngFor="let i of courseOptions" [ngValue]="i">
+                                {{i.label}}
+                            </option>
+                        </select>
+                        <b for="message-text" class="col-form-label">Mô tả:</b>
+                        <input type="text" [(ngModel)]="params.data.description" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="updateCurriculum()">Cập nhật </button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template>

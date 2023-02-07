@@ -1,0 +1,23 @@
+<div class="body2">
+    <div class="teacher">
+        <div class="main">
+            <div class="row">
+                <div class="col-2" *ngFor="let i of rowData;">
+                    <button type="button" class="btn btn-light"
+                        (click)="selectClass(i.class_id)">{{i.class_name}}</button>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="sales-boxes" *ngIf="studentData">
+            <ag-grid-angular class="ag-theme-balham" [rowData]="studentData" [headerHeight]="80" [rowHeight]="80"
+                [suppressContextMenu]="true" [suppressRowTransform]="true" [suppressRowClickSelection]="true"
+                [rowSelection]="'multiple'" [treeData]="true" [defaultColDef]="defaultColDef" [columnDefs]="columnDefs">
+            </ag-grid-angular>
+        </div>
+        <br><br>
+    </div>
+</div>
+
+<br><br><br>
+

@@ -1,0 +1,7 @@
+<div id="menuContainer">
+  <ul class="navbar-nav mr-auto">
+    <div class="sub-title">
+      <a [routerLink]="menu.link" *ngFor="let menu of menus">{{menu.text}}</a>
+    </div>
+  </ul>
+</div>

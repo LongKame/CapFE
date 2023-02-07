@@ -1,0 +1,109 @@
+<div class="but" style="width: fit-content; margin: auto; margin-top: 20px;">
+    <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Update" (click)="openModal(update)"><i class="fa fa-eye"></i></button>
+    <div class="space">
+    </div>
+    <button type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete" (click)="openModalDelete(delete)"><i class="fas fa-user-minus"></i></button>
+    <div class="space">
+    </div>
+    <!-- <button type="button" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Change class" (click)="openModal(change)"><i class="fas fa-exchange-alt"></i></button> -->
+</div>
+
+<ng-template #delete>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Xóa học viên</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteStudent()">Xóa</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template>
+
+<ng-template #change>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Change class for student</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Tên người dùng:</b>
+                        <input type="text" [readonly]="true" (keypress)="keyPressName($event)" [(ngModel)]="params.data.full_name" class="form-control">
+                        <b for="message-text" class="col-form-label">Email:</b>
+                        <input type="text" [readonly]="true" [(ngModel)]="params.data.email" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Số điện thoại:</b>
+                        <input type="phone" [readonly]="true" [(ngModel)]="params.data.phone" class="form-control">
+                        <b for="message-text" class="col-form-label">Lớp học:</b>
+                        <select class="form-control" formControlName="slot_id" required>
+                            <option *ngFor="let item of classOptions" [value]="item.value">{{ item.label }}</option>
+                        </select>
+                        <select class="form-control" required="">
+                            <option *ngFor="let i of classOptions" [value]="i.value"
+                                [attr.selected]="params.data.course_name==i.label ? i.label: null">
+                                {{i.label}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template>
+
+<ng-template #update>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Chi tiết học viên</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Tên tài khoản:</b>
+                        <input type="text" [readonly]="true" [(ngModel)]="params.data.user_name" class="form-control">
+                        <b for="message-text" class="col-form-label">Tên người dùng:</b>
+                        <input type="text" [readonly]="true" [(ngModel)]="params.data.full_name" class="form-control">
+                        <b for="message-text" class="col-form-label">Email:</b>
+                        <input type="text" [readonly]="true" [(ngModel)]="params.data.email" class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Số điện thoại:</b>
+                        <input type="phone" [readonly]="true" [(ngModel)]="params.data.phone" class="form-control">
+                        <b for="message-text" class="col-form-label">Địa chỉ:</b>
+                        <input type="text" [readonly]="true" [(ngModel)]="params.data.address" class="form-control">
+                        <b for="message-text" class="col-form-label">Khóa học:</b>
+                        <li>
+                            <span *ngFor="let dat of params.data.courses"
+                                aria-hidden="true">{{dat}}<span></span></span>
+                        </li>
+                        <b for="message-text" class="col-form-label">Lớp học:</b>
+                        <li>
+                            <span *ngFor="let dat of params.data.classes"
+                                aria-hidden="true">{{dat}}<span></span></span>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template>

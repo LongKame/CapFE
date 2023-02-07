@@ -1,0 +1,256 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMBzCnHN3tJhq7x-zB4bPHN098fswAZvD-6w&usqp=CAU" />
+      </li>
+      <li class="nav-item">
+        <button type="button" class="btn btn-light">
+          <span class="fa fa-phone" style="color: pink"></span> 0934 489 666
+        </button>
+      </li>
+      <li class="nav-item">
+        <button type="button" class="btn btn-light">
+          <span class="fa fa-envelope" style="color: pink"></span>
+          thanhlong@gmail.com
+        </button>
+      </li>
+      <form class="form-inline my-2 my-lg-0">
+      </form>
+    </ul>
+    <div class="signin-signup" *ngIf="!userProfile">
+      <button type="button" class="btn btn-danger" (click)="openLoginForm(loginForm)">Đăng nhập</button>
+      <div class="space">
+      </div>
+      <button type="button" class="btn btn-light" (click)="openRegisForm(regisForm)">Đăng kí</button>
+    </div>
+
+    <div class="btn-group" *ngIf="userProfile">
+      <button type="button" class="btn btn-light" data-toggle="dropdown" aria-expanded="false">
+        <div class="profile_1">
+          <img src="http://www.sheffield.com/wp-content/uploads/2013/06/placeholder.png" />
+        </div>
+      </button>
+      <div class="dropdown-menu">
+        <div class="dropdown-item">{{ userProfile.username }}</div>
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-item" (click)="onLogout()">Đăng xuất</div>
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-item" (click)="onUpdateProfile(update)">Thông tin cá nhân</div>
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-item" (click)="openFoul(violate)">Lỗi vi phạm</div>
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-item" (click)="openChange(post_violate)">Post lỗi vi phạm</div>
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-item" (click)="openChange(changePassword)">Thay đổi mật khẩu</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<ng-template #changePassword>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Thay đổi mật khẩu</h4>
+    <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="username">Mật khẩu cũ</label>
+      <input autocomplete="off" [(ngModel)]="old_password" required type="password" class="form-control mt-1"
+        id="username" placeholder="Old password">
+    </div>
+    <div class="form-group mt-3">
+      <label for="password">Mật khẩu mới</label>
+      <input autocomplete="off" [(ngModel)]="new_password" required type="password" class="form-control mt-1"
+        id="password" placeholder="New password">
+    </div>
+    <div class="form-group mt-3">
+      <label for="name">Nhập lại mật khẩu mới</label>
+      <input autocomplete="off" [(ngModel)]="re_new_password" required type="password" class="form-control mt-1"
+        id="password" placeholder="Re-New password">
+    </div>
+    <button *ngIf="new_password === re_new_password && new_password && re_new_password" type="submit"
+      class="btn btn-primary mt-3" (click)="onChange()">Thay đổi</button>
+  </div>
+</ng-template>
+
+<ng-template #post_violate>
+  <!-- <form ngNativeValidate #form> -->
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Post lỗi vi phạm</h4>
+      <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="modal-body" *ngIf="profile">
+      <div class="row">
+        <div class="col-sm-12">
+          <b for="message-text" class="col-form-label">Lỗi vi phạm:</b>
+          <input type="text" [(ngModel)]="name" placeholder="Lỗi vi phạm" class="form-control">
+          <b for="message-text" class="col-form-label">MSSV vi phạm:</b>
+          <input type="text" [(ngModel)]="violated_code" placeholder="MSSV" class="form-control">
+          <b for="message-text" class="col-form-label">Ảnh:</b>
+          <input type="file" (change)="onChange1($event)" class="form-control">
+          <br>
+          <div *ngIf="imageUrl">
+              <img [src]="imageUrl" width="50px" height="100px">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="addViolate()">Lưu</button>
+      <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+  <!-- </form> -->
+</ng-template>
+
+<ng-template #violate>
+  <form ngNativeValidate #form>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Lỗi vi phạm</h4>
+      <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="modal-body" *ngIf="profile">
+      <div class="row">
+        <div class="col-sm-12" *ngFor="let i of violateX">
+          <td>{{i.name}}</td>
+          <td><img class="listImg" [src]="i.image" style="height:100px;" /></td>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="updateProfile()">Lưu</button>
+      <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #update>
+  <form ngNativeValidate #form>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Thông tin cá nhân</h4>
+      <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="modal-body" *ngIf="profile">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-6">
+              <b for="message-text" class="col-form-label">username:</b>
+              <input type="text" [(ngModel)]="user_name_param" [readonly]="true" class="form-control" required
+                [ngModelOptions]="{standalone: true}">
+              <b for="message-text" class="col-form-label">Tên người dùng:</b>
+              <input type="text" [(ngModel)]="full_name_param" (keypress)="keyPressName($event)" class="form-control"
+                required [ngModelOptions]="{standalone: true}">
+              <b for="message-text" class="col-form-label">Email:</b>
+              <input type="text" [(ngModel)]="email_param" [readonly]="true" class="form-control" required
+                [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="col-6">
+              <b for="message-text" class="col-form-label">Address:</b>
+              <input type="text" [(ngModel)]="address_param" class="form-control" required
+                [ngModelOptions]="{standalone: true}">
+              <b for="message-text" class="col-form-label">Phone:</b>
+              <input type="email" [(ngModel)]="phone_param" class="form-control" required
+                [ngModelOptions]="{standalone: true}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="updateProfile()">Lưu</button>
+      <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #regisForm>
+  <form [formGroup]="formRegis" (ngSubmit)="onRegister()" ngNativeValidate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Đăng kí</h4>
+      <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="username">Tên tài khoản</label>
+        <input autocomplete="off" required class="form-control mt-1" id="username" placeholder="Tên tài khoản"
+          (keypress)="keyPressUserName($event)" formControlName="username">
+      </div>
+      <div class="form-group mt-3">
+        <label for="password">Mật khẩu</label>
+        <input autocomplete="off" required type="password" class="form-control mt-1" id="password"
+          placeholder="Mật khẩu" formControlName="password">
+      </div>
+      <div class="form-group mt-3">
+        <label for="name">Tên đầy đủ</label>
+        <input autocomplete="off" required type="text" class="form-control mt-1" id="password" placeholder="Tên đầy đủ"
+          (keypress)="keyPressName($event)" formControlName="fullname">
+      </div>
+      <div class="form-group mt-3">
+        <label for="email">Email</label>
+        <input autocomplete="off" required type="email" class="form-control mt-1" id="password" placeholder="Email"
+          formControlName="email">
+      </div>
+      <div class="form-group mt-3">
+        <label for="phone">Số điện thoại</label>
+        <input autocomplete="off" (keypress)="keyPressPhone($event)" minlength=10 maxlength=10 required type="phone"
+          class="form-control mt-1" id="password" placeholder="Số điện thoại" formControlName="phone">
+      </div>
+      <div class="form-group mt-3">
+        <label for="address">Địa chỉ</label>
+        <input autocomplete="off" required type="text" class="form-control mt-1" id="password" placeholder="Địa chỉ"
+          formControlName="address">
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Đăng kí</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #loginForm>
+  <form [formGroup]="formLogin" (ngSubmit)="onLogin()" ngNativeValidate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Đăng nhập</h4>
+      <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="username">Tên tài khoản</label>
+        <input autocomplete="off" required class="form-control mt-1" id="username" placeholder="Tên tài khoản"
+          formControlName="username">
+      </div>
+      <div class="form-group mt-3">
+        <label for="password">Mật khẩu</label>
+        <input autocomplete="off" required type="password" class="form-control mt-1" id="password"
+          placeholder="Mật khẩu" formControlName="password">
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Đăng nhập</button>
+      <button type="button" class="btn btn-light mt-3" (click)="openForgotForm(forgot)">Quên mật khẩu</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #forgot>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Lấy lại mật khẩu</h4>
+    <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="username">Email</label>
+      <input autocomplete="off" required class="form-control mt-1" id="email" placeholder="Email"
+        [(ngModel)]="emailReset">
+    </div>
+    <button type="button" class="btn btn-primary mt-3" (click)="onForgot()">Gửi đến Email</button>
+  </div>
+</ng-template>

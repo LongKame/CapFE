@@ -1,0 +1,61 @@
+<div class="but" style="width: fit-content; margin: auto; margin-top: 20px;">
+    <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Update"
+        (click)="openModal(update)"><i class="fas fa-user-edit"></i></button>
+    <div class="space">
+    </div>
+</div>
+
+
+<ng-template #update>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Cập nhật lịch học</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Thứ tự buổi học:</b>
+                        <input type="text" [readonly]="true" [(ngModel)]="params.data.slot_th" class="form-control">
+                        <b for="message-text" class="col-form-label">Ngày học:</b>
+                        <input type="date" class="form-control" name="currentDate" [(ngModel)]="study_date">
+
+                        <!-- <input type="date" [ngModel]="params.data.date_study | date:'yyyy-MM-dd'"
+                        name="dt" class="form-control form-control-rounded" #searchDate> -->
+
+                        <b for="message-text" class="col-form-label">Slot trong ngày:</b>
+                        <input type="text" [readonly]="true" [(ngModel)]="params.data.slot_of_date"
+                            class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Phòng học:</b>
+                        <select class="form-control" [(ngModel)]="roomId">
+                            <option *ngFor="let i of roomOptions" [ngValue]="i">
+                                {{i.label}}
+                            </option>
+                        </select>
+
+                        <b for="message-text" class="col-form-label">Giảng viên:</b>
+                        <input type="text" class="form-control" [readonly]="true" [(ngModel)]="params.data.teacher_name">
+
+                        <!-- <b for="message-text" class="col-form-label">Giảng viên:</b>
+                        <select class="form-control" [(ngModel)]="teacherId">
+                            <option *ngFor="let i of teacherOptions" [ngValue]="i">
+                                {{i.label}}
+                            </option>
+                        </select> -->
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="updateSchedule()">Cập nhật</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Xóa</button>
+    </div>
+</ng-template>

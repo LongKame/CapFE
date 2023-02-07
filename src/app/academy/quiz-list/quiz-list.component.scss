@@ -1,0 +1,13 @@
+.level {
+  background-color: #f8f9fa;
+  text-align: center;
+  color: #212529;
+  text-decoration: none;
+  font-size: 20px;
+  padding: 20px 160px;
+  border-radius: 32px;
+  &:hover {
+    background-color: #ff6666;
+    color: #fff;
+  }
+}

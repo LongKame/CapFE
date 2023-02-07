@@ -1,0 +1,52 @@
+<!-- <p>dashboard works!</p> -->
+
+<div style="width: fit-content; margin: auto; margin-top: 20px;">
+    <button style="width: 100%; height: 50px;" type="button" class="btn btn-primary" (click)="openModal(add)">Add</button>
+</div>
+
+<div class="sales-boxes">
+    <ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-balham" [rowData]="rowData"
+        [headerHeight]="80" [rowHeight]="80" [columnDefs]="columnDefs">
+    </ag-grid-angular>
+</div>
+
+
+<ng-template #add>
+    <div class="modal-header" >
+        <h4 class="modal-title pull-left">Add teacher</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+    <div class="modal-body" style="width: 500px;">
+        <div class="form-group">
+            <label for="id">Tên tài khoản</label>
+            <input type="text" [(ngModel)] = "username" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="image">Tên đầy đủ</label>
+            <input type="text" [(ngModel)] = "fullname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="name">Mật khẩu</label>
+            <input type="text" [(ngModel)] = "password" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="name">Email</label>
+            <input type="email" [(ngModel)] = "email"  class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="name">Số điện thoại</label>
+            <input type="text" [(ngModel)] = "phone" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="name">Địa chỉ</label>
+            <input type="text" [(ngModel)] = "address"  class="form-control">
+        </div>
+        <br>
+        <button type="button" class="btn btn-primary" (click)="addTeacher()">Add</button>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template>

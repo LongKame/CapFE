@@ -1,0 +1,25 @@
+<p>Xem lớp học</p>
+
+<nav>
+    <div class="search-box">
+        <input type="text" placeholder="Tìm kiếm..." [(ngModel)]="key">
+        <button (click)="onSearch(1)"><i class="bx bx-search"></i></button>
+    </div>
+</nav>
+
+<br><br>
+<div class="sales-boxes">
+    <ag-grid-angular class="ag-theme-balham" [rowData]="rowData" [headerHeight]="80" [rowHeight]="80"
+        [suppressContextMenu]="true" [suppressRowTransform]="true" [suppressRowClickSelection]="true"
+        [rowSelection]="'multiple'" [treeData]="true" [defaultColDef]="defaultColDef" [columnDefs]="columnDefs">
+    </ag-grid-angular>
+</div>
+
+<div class="pagination">
+    <button (click)="prev()" class="btn btn-warning">&laquo;</button>
+    <button id="btn{{index}}" class="btn btn-warning btn-pag" *ngFor="let a of [].constructor(totalPage); let index = index"
+        (click)="onSearch(index+1,$event)">{{ index+1 }}</button>
+    <button (click)="next()" class="btn btn-warning">&raquo;</button>
+</div>
+
+

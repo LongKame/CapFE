@@ -1,0 +1,140 @@
+<div class="quiz-container mb-3">
+  <div class="container" style="width: 80%">
+    <h2 class="text-center mb-4 user-select-none">
+      <b>Mini Practice Test - Test kiểm tra Level {{level}}</b>
+    </h2>
+    <div class="row mb-4">
+      <div class="col-sm-8" *ngIf="questions?.length">
+        <h5 class="user-select-none">
+          Choose the answer that best completes the sentence:
+        </h5>
+        <p class="user-select-none">
+          Question {{ currentIndex + 1 }}: {{ currentQuestion.question }}
+        </p>
+        <div class="ml-5 mt-4" [ngClass]="{ 'd-none': !questions.length }">
+          <div
+            *ngFor="
+              let answer of [
+                currentQuestion.answerA,
+                currentQuestion.answerB,
+                currentQuestion.answerC,
+                currentQuestion.answerD
+              ];
+              let i = index
+            "
+            class="mb-1"
+          >
+            <div
+              class="d-inline-flex align-items-center user-select-none"
+              (click)="onAnswer(answer)"
+            >
+              <input
+                class="mr-2"
+                type="radio"
+                [id]="'answer' + i"
+                name="answer"
+                [value]="answer"
+                [checked]="answer === currentQuestion.userAnswer"
+              />
+              <label class="form-check-label" [for]="'answer' + i">
+                {{ answer }}
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex mt-5">
+          <button
+            class="btn btn-light mr-5"
+            (click)="onBackQuestion()"
+            [disabled]="currentIndex === 0"
+          >
+            Back
+          </button>
+          <button
+            class="btn btn-light mr-5"
+            (click)="onNextQuestion()"
+            [disabled]="currentIndex === this.questions.length - 1"
+          >
+            Next
+          </button>
+          <button class="btn btn-secondary" (click)="onSubmit(confirmModal)">Submit</button>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div
+          class="ml-1 mr-1 p-2 mb-2 text-center rounded user-select-none"
+          style="background-color: #ff6666"
+        >
+          <countdown
+            #cd
+            (event)="countDownEvent($event, resultModal)"
+            [config]="{ leftTime: countDownTime, format: 'mm:ss', demand: true }"
+          ></countdown>
+        </div>
+        <div class="d-flex flex-wrap">
+          <div
+            style="width: 25%"
+            class="p-1"
+            *ngFor="let q of questions; let i = index"
+          >
+            <button
+              (click)="onClickQuestionItem(i)"
+              [ngClass]="{
+                current: i === currentIndex,
+                answered: !!questions[i].userAnswer
+              }"
+              class="btn btn-light w-100"
+            >
+              {{ i + 1 }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #resultModal>
+  <div class="modal-header">
+    <h5 class="pull-left">Kết quả Test</h5>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="mb-1"><b>Tên</b>: {{ userProfile?.name }}</div>
+      <div class="mb-1">
+        <b>Kết quả đúng</b>: {{ totalCorrect }}/{{ questions.length }}
+      </div>
+      <div><b>Điểm</b>: {{ (totalCorrect / questions.length) * 10 | number : '1.2-2'}}</div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="onRetest()">
+      Kiểm tra lại
+    </button>
+    <button type="button" class="btn btn-default" (click)="onQuite()">
+      Thoát
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #confirmModal>
+  <div class="modal-header">
+    <h5 class="pull-left">Bạn có muốn nộp bài?</h5>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="mb-1"><b>Tên</b>: {{ userProfile?.name }}</div>
+      <div class="mb-1">
+        <b>Đã làm</b>: {{ totalInprogress }}/{{ questions.length }}
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="this.confirmModalRef?.hide()">
+      Làm tiếp
+    </button>
+    <button type="button" class="btn btn-default" (click)="onFinalSubmit(resultModal)">
+      Nộp bài
+    </button>
+  </div>
+</ng-template>

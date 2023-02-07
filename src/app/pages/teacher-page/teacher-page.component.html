@@ -1,0 +1,96 @@
+<sidebar [menus]="menus"></sidebar>
+
+<section class="home-section">
+    <nav>
+        <div class="sidebar-button">
+            <span class="logo_name">English Center Management</span>
+        </div>
+        <div class="profile-details" *ngIf="userProfile">
+            <img src="https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png" alt="">
+            <span class="admin_name">{{ userProfile.username }}</span>
+            <i class="bx bx-chevron-down"></i>
+            <button type="button" (click)="openModal(update)" class="btn btn-danger">Cài đặt</button>
+        </div>
+    </nav>
+    <router-outlet></router-outlet>
+</section>
+
+<div class="home-content">
+    <div class="overview-boxes">
+        <div class="box">
+            <div class="left-side">
+                <div class="box_topic"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #update>
+    <form ngNativeValidate #form>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Thay đổi lý lịch</h4>
+            <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+                <span aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="modal-body" *ngIf="profile">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <b for="message-text" class="col-form-label">Tên tài khoản:</b>
+                            <input type="text" [(ngModel)]="user_name_param" [readonly]="true" class="form-control" required [ngModelOptions]="{standalone: true}">
+                            <b for="message-text" class="col-form-label">Tên người dùng:</b>
+                            <input type="text" [(ngModel)]="full_name_param" (keypress)="keyPressName($event)" class="form-control" required [ngModelOptions]="{standalone: true}">
+                            <b for="message-text" class="col-form-label">Email:</b>
+                            <input type="text" [(ngModel)]="email_param" [readonly]="true" class="form-control" required [ngModelOptions]="{standalone: true}">
+                        </div>
+                        <div class="col-6">
+                            <b for="message-text" class="col-form-label">Address:</b>
+                            <input type="text" [(ngModel)]="address_param"  class="form-control" required [ngModelOptions]="{standalone: true}">
+                            <b for="message-text" class="col-form-label">Phone:</b>
+                            <input type="email" [(ngModel)]="phone_param" (keypress)="keyPressPhone($event)" minlength=10 maxlength=10 class="form-control" required [ngModelOptions]="{standalone: true}">
+                            <b for="message-text" class="col-form-label">Image:</b>
+                            <br>
+                            <input type="file" (change)="onChange($event)" class="form-control">
+                            <br>
+                            <div *ngIf="!myImage">
+                                <img [src]="imageUrl_param" width="50px" height="100px">
+                            </div>
+                            <div *ngIf="myImage">
+                                <img [src]="myImage" width="50px" height="100px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="updateProfile()">Lưu</button>
+            <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+            <button type="button" class="btn btn-warning" (click)="openChange(changePassword)">Thay đổi mật khẩu</button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #changePassword>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Thay đổi mật khẩu</h4>
+      <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="username">Mật khẩu cũ</label>
+        <input autocomplete="off" [(ngModel)]="old_password" required  type="password" class="form-control mt-1" id="username" placeholder="Old password">
+      </div>
+      <div class="form-group mt-3">
+        <label for="password">Mật khẩu mới</label>
+        <input autocomplete="off" [(ngModel)]="new_password" required type="password" class="form-control mt-1" id="password" placeholder="New password">
+      </div>
+      <div class="form-group mt-3">
+        <label for="name">Nhập lại mật khẩu mới</label>
+        <input autocomplete="off" [(ngModel)]="re_new_password" required type="password" class="form-control mt-1" id="password" placeholder="Re-New password">
+      </div>
+      <button *ngIf="new_password === re_new_password && new_password && re_new_password" type="submit" class="btn btn-primary mt-3"  (click)="onChangePassword()">Thay đổi</button>
+    </div>
+</ng-template>

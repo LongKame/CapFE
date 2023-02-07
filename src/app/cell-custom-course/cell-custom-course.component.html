@@ -1,0 +1,60 @@
+<div class="but" style="width: fit-content; margin: auto; margin-top: 20px;">
+    <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Update" (click)="openModal(update)"><i class="fas fa-user-edit"></i></button>
+    <div class="space">
+    </div>
+    <!-- <button type="button" class="btn btn-danger" (click)="openModal(delete)"><i class="fas fa-user-minus"></i></button> -->
+</div>
+
+<ng-template #delete>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Xóa khóa học</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteCourse()">Xóa</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template>
+
+
+<ng-template #update>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Cập nhật khóa học</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Khóa học:</b>
+                        <input type="text" [(ngModel)]="params.data.course_name" class="form-control">
+                        <b for="message-text" class="col-form-label">Mức độ:</b>
+                        <input type="text" [readonly]="true" [(ngModel)]="params.data.level" class="form-control">
+                        <b for="message-text" class="col-form-label">Số slot:</b>
+                        <input type="number" [(ngModel)]="params.data.numberSlot" 
+                        (keypress)="keyPressSlot($event)" minlength=2 maxlength=2 class="form-control">
+                    </div>
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Ngày tạo:</b>
+                        <input type="email" [readonly]="true" [(ngModel)]="params.data.createdAt" class="form-control">
+                        <b for="message-text" class="col-form-label">Ngày cập nhật:</b>
+                        <input type="text" [readonly]="true" [(ngModel)]="params.data.updatedAt" class="form-control">
+                        <b for="message-text" class="col-form-label">Học phí:</b>
+                        <input type="text" (keypress)="keyPressFee($event)" [(ngModel)]="params.data.fee" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="updateCourse()">Cập nhật</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Xóa</button>
+    </div>
+</ng-template>

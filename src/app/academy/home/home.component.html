@@ -1,0 +1,68 @@
+<!-- <div class="banner">
+  <img
+    src="https://image.shutterstock.com/image-vector/horizontal-internet-banner-about-learning-260nw-1603435279.jpg" />
+</div> -->
+
+<div class="container">
+  <div class="main">
+    <div class="contentGalery">
+      <ul>
+        <li class="span4" *ngFor="let i of course" style="box-sizing: content-box; margin-bottom: 30px;">
+          <a href="#"><img class="listImg" [src]="i.image" style="height:70%;" /></a>
+          <h4>{{i.name}}</h4>
+          <div class="footer-btn">
+            <button type="button" class="btn btn-success" (click)="openFormRegis(classes, i.id)">Xem sự kiện</button>
+            <div class="space">
+            </div>
+          </div>
+        </li>
+        <div class="space">
+        </div>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<ng-template #detail>
+  <form ngNativeValidate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Chi tiết sự kiện</h4>
+      <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="username">Course</label>
+        <h3>{{course_name}}</h3>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-warning" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #classes>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Đăng ký sự kiện</h4>
+    <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <b for="message-text" class="col-form-label">Dòng trạng thái: </b><label></label>
+      <input type="text" class="form-control" [(ngModel)]="caption">
+
+      <b for="message-text" class="col-form-label">Ảnh:</b>
+      <input type="file" (change)="onChange($event)" class="form-control">
+      <br>
+      <div *ngIf="imageUrl">
+          <img [src]="imageUrl" width="50px" height="100px">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="register()">Đăng kí</button>
+    <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+  </div>
+</ng-template>

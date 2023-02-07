@@ -1,0 +1,63 @@
+<div class="but" style="width: fit-content; margin: auto; margin-top: 20px;">
+    <button type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Update"
+        (click)="openModal(update)"><i class="fas fa-user-edit"></i></button>
+    <div class="space">
+    </div>
+    <!-- <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom">
+        Tooltip on bottom
+      </button> -->
+    <!-- <button type="button" class="btn btn-danger" (click)="openModal(delete)"><i class="fas fa-user-minus"></i></button> -->
+</div>
+
+<ng-template #delete>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Xóa phòng</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-danger" (click)="deleteCourse()">Delete</button> -->
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template>
+
+
+<ng-template #update>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Cập nhật phòng</h4>
+        <button class="btn-close" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Phòng học:</b>
+                        <input type="text" [(ngModel)]="params.data.roomname" class="form-control">
+                        <b for="message-text" class="col-form-label">Sức chứa:</b>
+                        <input type="text" [(ngModel)]="params.data.capacity" class="form-control">
+                        <b for="message-text" class="col-form-label">Trạng thái:</b>
+                        <div class="space">
+                        </div>
+                        <input type='checkbox' [(ngModel)]="params.data.active">
+                    </div>
+                    <div class="col-6">
+                        <b for="message-text" class="col-form-label">Ngày tạo:</b>
+                        <input type="email" [readonly]="true" [(ngModel)]="params.data.createdat" class="form-control">
+                        <b for="message-text" class="col-form-label">Ngày cập nhật:</b>
+                        <input type="text" [readonly]="true" [(ngModel)]="params.data.updatedat" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="updateRoom()">Cập nhật</button>
+        <button type="button" class="btn btn-default" (click)="modalRef?.hide()">Đóng</button>
+    </div>
+</ng-template>

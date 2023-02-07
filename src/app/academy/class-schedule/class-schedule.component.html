@@ -1,0 +1,35 @@
+<div class="body2">
+    <div class="teacher" style="margin-top: 20px;">
+        <div class="main" >
+            <div class="row">
+                <div class="col-2" *ngFor="let i of rowData;" style="margin-left: 10px;">
+                    <button type="button" class="btn btn-light"
+                        (click)="selectClass(i.class_id)">{{i.class_name}}</button>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        <div class="sales-boxes" *ngIf="classData">
+            <table>
+                <tr>
+                    <th>SlotTH</th>
+                    <th>Date</th>
+                    <th>Slot</th>
+                    <th>Room</th>
+                    <th>Teacher</th>
+                </tr>
+                <tr *ngFor="let i of classData">
+                    <td>{{i.slot_th}}</td>
+                    <td>{{i.date_study}}</td>
+                    <td>{{i.slot_of_date}}</td>
+                    <td>{{i.room_name}}</td>
+                    <td>{{i.teacher_name}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<br><br><br>
+
